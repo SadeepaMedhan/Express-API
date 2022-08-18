@@ -1,10 +1,14 @@
 const express = require('express')
-const customer = require('./routes/customer')
 const app = express()
+const customer = require('./routes/customer')
+const user = require('./routes/user')
+const item = require('./routes/item')
 const port = 4000
 
 app.use(express.json())
 app.use('/customer',customer)
+app.use('/user',user)
+app.use('/item',item)
 
 
 app.listen(port, ()=>{
