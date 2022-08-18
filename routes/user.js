@@ -44,18 +44,41 @@ router.post('/', (req,res)=>{
 
 })
 router.put('/', (req,res)=>{
-    console.log(req.body);
-    res.send('put user')
+    const id = req.body.id
+    const name = req.body.name
+    const username = req.body.username
+
+    var query = "UPDATE users SET name=?, username=? WHERE id=?";
+    connection.query(query,[name,username,id], (err, row)=>{
+        if(err) throw err
+        if(row.affectedRows > 0){
+            res.send({'message' : 'user updated'})
+        }else{
+            res.send({'message' : 'user not found'})
+        }
+    })
 })
 
 router.delete('/:id', (req,res)=>{
-    console.log(req.params.id);
-    res.send('delete user')
+    const id = req.params.id
+    var query = "DELETE FROM users WHERE id=?";
+    connection.query(query,[id], (err, row)=>{
+        if(err) throw err
+        if(row.affectedRows > 0){
+            res.send({'message' : 'user deleted'})
+        }else{
+            res.send({'message' : 'user not found'})
+        }
+    })
 })
 
 router.get('/:id', (req,res)=>{
-    console.log(req.params.id);
-    res.send('get user by id')
+    const id = req.params.id
+    var query = "SELECT * FROM users WHERE id=?";
+    connection.query(query,[id], (err, row)=>{
+        if(err) throw err
+       res.send(row)
+    })
 })
 
 module.exports = router
