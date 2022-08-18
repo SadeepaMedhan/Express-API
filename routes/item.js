@@ -51,8 +51,8 @@ router.put('/', (req,res)=>{
     const price = req.body.price
     const qty = req.body.qty
 
-    var query = "UPDATE item SET description=?, price=? qty=? WHERE id=?";
-    connection.query(query,[name,username,id], (err, row)=>{
+    var query = "UPDATE item SET description=?, price=?, qty=? WHERE id=?";
+    connection.query(query,[description,price,qty,id], (err, row)=>{
         if(err) throw err
         if(row.affectedRows > 0){
             res.send({'message' : 'item updated'})
